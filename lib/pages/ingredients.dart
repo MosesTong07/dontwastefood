@@ -93,7 +93,8 @@ class IngredientsScreenContent extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 90, right: 20.0),
+                  padding:
+                      const EdgeInsets.only(left: 20.0, top: 90, right: 20.0),
                   child: Row(
                     children: [
                       FittedBox(
@@ -101,22 +102,100 @@ class IngredientsScreenContent extends StatelessWidget {
                         child: Text(
                           'Fridge',
                           style: TextStyle(
-                          color: Colors.white,
-                          fontSize: size.width > 500
-                                  ? getAdaptiveFontSize(24)
-                                  : getAdaptiveFontSize(28),
-                          fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: size.width > 500
+                                ? getAdaptiveFontSize(24)
+                                : getAdaptiveFontSize(28),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                       Spacer(),
-                      IconButton (
-                        color: const Color(0xFFF9F6E7),
-                        onPressed: () {
-                          //TODO: Link to app_logic.dart
-                        },
-                        icon: Icon(Icons.add)
-                      )
+                      IconButton(
+                          color: const Color(0xFFF9F6E7),
+                          onPressed: () {
+                            showModalBottomSheet<dynamic>(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFF9F6E7),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(30.0),
+                                      topLeft: Radius.circular(30),
+                                    ),
+                                  ),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0, top: 30, right: 30),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Ingredient Name',
+                                            style: TextStyle(
+                                              fontSize: getAdaptiveFontSize(20),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          TextField(
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Enter a name',
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            'Quantity (grams)',
+                                            style: TextStyle(
+                                              fontSize: getAdaptiveFontSize(20),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          TextField(
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Enter a value',
+                                            ),
+                                          ),
+                                          SizedBox(height:10),
+                                          Center(
+                                            child: SizedBox(
+                                              width:
+                                                  200, // adjust this value as needed
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 7, 131, 9),
+                                                  foregroundColor: Colors.white,
+                                                ),
+                                                child: const Text('Save'),
+                                                onPressed: () {
+                                                  //TODO: ADD LOGIC TO ADD TO INGREDIENT LIST
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+
+                            //TODO: Link to app_logic.dart
+                          },
+                          icon: Icon(Icons.add))
                     ],
                   ),
                 )
