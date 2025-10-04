@@ -279,8 +279,15 @@ class IngredientsScreenContent extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: Center(
-                              child: IngredientCard(name: "Banana", quantity: 100)
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10.0, right: 20.0),
+                              child: Row(
+                                children: [
+                                  Text("Banana"),
+                                  Spacer(),
+                                  Text("100g")
+                                ]
+                              ),
                             ),
                           ),
                         );

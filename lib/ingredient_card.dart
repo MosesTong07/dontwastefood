@@ -21,6 +21,7 @@ class IngredientCard extends StatelessWidget {
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          
           child: Row(
             children: [
               Text(name),
