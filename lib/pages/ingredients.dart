@@ -201,14 +201,7 @@ class IngredientsScreenContent extends StatelessWidget {
                               ],
                             ),
                             child: Center(
-                              child: Text(
-                                'Item ${index + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              child: IngredientCard(name: "Banana", quantity: 100)
                             ),
                           ),
                         );
