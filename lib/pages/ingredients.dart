@@ -62,10 +62,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
   }
 }
 
-
-
 // Separate stateless widget for Recipe screen content
-//TODO:
 class IngredientsScreenContent extends StatelessWidget {
   const IngredientsScreenContent({super.key});
 
