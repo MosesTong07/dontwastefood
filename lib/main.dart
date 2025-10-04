@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'fridge_page.dart';
+import 'pages/recipe.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
@@ -10,20 +10,13 @@ Future<void> main() async {
     anonKey:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRybXFzbHp3cmJwbWJoeWZ3Z21hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk0NzcxNTMsImV4cCI6MjA3NTA1MzE1M30.2KnlY3mI2fqB32TLTy0QkSIDMtZF_8CzIiXhfpQwog4",
   );
-  runApp(const MyApp());
-=======
-import 'pages/recipe.dart';
-
-void main() {
-   WidgetsFlutterBinding.ensureInitialized();
-    SystemChrome.setPreferredOrientations([
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
-     runApp(const MyApp());
+    runApp(const MyApp());
   });
- 
->>>>>>> d2c9d9a84017f0f207044c8a359744220c71f418
 }
 
 class MyApp extends StatelessWidget {
@@ -31,21 +24,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FridgePage(),
+      home: RecipeScreen(),
     );
   }
 }
-=======
-    return MaterialApp(
-      home: RecipeScreen() ,
-    );
-  }
-}
-
-
 
 // class MyApp extends StatelessWidget {
 //   const MyApp({super.key});
@@ -163,4 +147,3 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
->>>>>>> d2c9d9a84017f0f207044c8a359744220c71f418
