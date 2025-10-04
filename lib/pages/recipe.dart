@@ -40,7 +40,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
       body: _pages[_currentIndex],
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFF9F6E7), 
+          color: const Color(0xFFF9F6E7),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.3), // shadow color
@@ -86,7 +86,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
                     ? const Color(0xFF058240)
                     : const Color(0xFF747474),
               ),
-              label: 'Ingredients',
+              label: 'Fridge',
             ),
           ],
         ),
@@ -104,6 +104,7 @@ class RecipeScreenContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     double headerHeight = size.height * 0.2;
+    double bottomHeight = size.height * 0.8;
 
     double getAdaptiveFontSize(double fontSize) {
       return fontSize * size.width / 400;
@@ -144,16 +145,352 @@ class RecipeScreenContent extends StatelessWidget {
                 ),
               ],
             ),
-            // Add more recipe content below
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Your recipe list goes here...',
-                style: TextStyle(
-                  fontSize: getAdaptiveFontSize(18),
-                  fontWeight: FontWeight.w500,
-                ),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Available Recipes',
+                      style: TextStyle(
+                        fontSize: getAdaptiveFontSize(24),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 170,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          5, //TODO: CHANGE THIS ACCORDING TO NUMBER OF AVAILABLE RECIPES
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            showModalBottomSheet<dynamic>(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                 //TODO: CHANGE THIS TO ACTUAL FRIDGE ITEMS
+                                final List<String> fridgeItems = [
+                                  '2 eggs',
+                                  '200ml milk',
+                                  '1 tbsp butter',
+                                  'Salt',
+                                  'Pepper',
+                                ];
+                                final List<bool> checked =
+                                    List<bool>.filled(fridgeItems.length, false);
+                                return Container(
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFF9F6E7),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(30.0),
+                                      topLeft: Radius.circular(30),
+                                    ),
+                                  ),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.8, // optional: more adaptive height
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0, top: 30, right: 30),
+                                    child: SingleChildScrollView(
+                                     
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Recipe Name', // TODO: CHANGE THIS TO CURRENT RECIPE
+                                            style: TextStyle(
+                                              fontSize: getAdaptiveFontSize(28),
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text(
+                                            'Fridge Items',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          ListView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            padding: EdgeInsets.zero,
+                                            itemCount: fridgeItems.length,
+                                            itemBuilder: (context, index) {
+                                              return StatefulBuilder(
+                                                builder: (context, setModalState) =>
+                                                    ListTile(
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          vertical: -4),
+                                                  contentPadding: EdgeInsets.zero,
+                                                  dense: true,
+                                                  leading: Checkbox(
+                                                    value: checked[index],
+                                                    onChanged: (v) =>
+                                                        setModalState(() =>
+                                                            checked[index] =
+                                                                v ?? false),
+                                                    materialTapTargetSize:
+                                                        MaterialTapTargetSize
+                                                            .shrinkWrap,
+                                                  ),
+                                                  title: Text(
+                                                    fridgeItems[index],
+                                                    style: const TextStyle(
+                                                        fontSize: 16),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          const Text(
+                                            'Steps',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text(
+                                            'The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start.',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Center(
+                                            child: ElevatedButton(
+                                              child: const Text('Close'),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(16),
+                          child: Container(
+                            width: 200,
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.orangeAccent,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  blurRadius: 6,
+                                  spreadRadius: 2,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Item ${index + 1}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Recipes with Incomplete Items',
+                      style: TextStyle(
+                        fontSize: getAdaptiveFontSize(24),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 170,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          5, //TODO: CHANGE THIS ACCORDING TO NUMBER OF AVAILABLE RECIPES
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            showModalBottomSheet<dynamic>(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                 //TODO: CHANGE THIS TO ACTUAL FRIDGE ITEMS
+                                final List<String> fridgeItems = [
+                                  '2 eggs',
+                                  '200ml milk',
+                                  '1 tbsp butter',
+                                  'Salt',
+                                  'Pepper',
+                                ];
+                                final List<bool> checked =
+                                    List<bool>.filled(fridgeItems.length, false);
+                                return Container(
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFF9F6E7),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(30.0),
+                                      topLeft: Radius.circular(30),
+                                    ),
+                                  ),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.8, 
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 30.0, top: 30, right: 30),
+                                    child: SingleChildScrollView(
+                                     
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Recipe Name', // TODO: CHANGE THIS TO CURRENT RECIPE
+                                            style: TextStyle(
+                                              fontSize: getAdaptiveFontSize(28),
+                                              fontWeight: FontWeight.w800,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text(
+                                            'Fridge Items',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          ListView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            padding: EdgeInsets.zero,
+                                            itemCount: fridgeItems.length,
+                                            itemBuilder: (context, index) {
+                                              return StatefulBuilder(
+                                                builder: (context, setModalState) =>
+                                                    ListTile(
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          vertical: -4),
+                                                  contentPadding: EdgeInsets.zero,
+                                                  dense: true,
+                                                  leading: Checkbox(
+                                                    value: checked[index],
+                                                    onChanged: (v) =>
+                                                        setModalState(() =>
+                                                            checked[index] =
+                                                                v ?? false),
+                                                    materialTapTargetSize:
+                                                        MaterialTapTargetSize
+                                                            .shrinkWrap,
+                                                  ),
+                                                  title: Text(
+                                                    fridgeItems[index],
+                                                    style: const TextStyle(
+                                                        fontSize: 16),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                          const Text(
+                                            'Steps',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w500,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          const Text(
+                                            'The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start.',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Center(
+                                            child: ElevatedButton(
+                                              child: const Text('Close'),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(16),
+                          child: Container(
+                            width: 200,
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.orangeAccent,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  blurRadius: 6,
+                                  spreadRadius: 2,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Item ${index + 1}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                ],
               ),
             ),
           ],
