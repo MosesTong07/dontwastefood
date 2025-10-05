@@ -28,6 +28,26 @@ class Database {
 
   final streamForFridge = supabase
       .from('FridgeContent')
-      .stream(primaryKey: ['fridge_content_id'])
+      .stream(primaryKey: ['id'])
       .eq('fridge_id', 1);
+
+  Future addToFridge(String ingredient, int quantity, String unit) async {
+    await supabase.from('FridgeContent').insert({
+      'fridge_id': 1,
+      'ingredients': ingredient,
+      'quantity': quantity,
+      'unit': unit,
+    });
+  }
+
+  Future editIngredients(String id, int quantity, String unit) async {
+    await supabase
+        .from('FridgeContent')
+        .update({'quantity': quantity, 'unit': unit})
+        .eq('id', id);
+  }
+
+  Future deleteFromFridge(String id) async {
+    await supabase.from('FridgeContent').delete().eq('id', id);
+  }
 }

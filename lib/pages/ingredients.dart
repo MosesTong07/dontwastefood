@@ -79,6 +79,10 @@ class IngredientsScreenContent extends StatelessWidget {
       return fontSize * size.width / 400;
     }
 
+    String ingredientNew = '';
+    int quantityNew = 0;
+    String unitNew = '';
+
     return Scaffold(
       backgroundColor: const Color(0xFFF9F6E7),
       body: StreamBuilder(
@@ -174,10 +178,14 @@ class IngredientsScreenContent extends StatelessWidget {
                                                 border: OutlineInputBorder(),
                                                 hintText: 'Enter a name',
                                               ),
+                                              onChanged: (value) {
+                                                // Store the input value in a variable
+                                                ingredientNew = value;
+                                              },
                                             ),
                                             const SizedBox(height: 10),
                                             Text(
-                                              'Quantity (grams)',
+                                              'Quantity',
                                               style: TextStyle(
                                                 fontSize: getAdaptiveFontSize(
                                                   20,
@@ -191,6 +199,30 @@ class IngredientsScreenContent extends StatelessWidget {
                                                 border: OutlineInputBorder(),
                                                 hintText: 'Enter a value',
                                               ),
+                                              onChanged: (value) {
+                                                quantityNew =
+                                                    int.tryParse(value) ?? 0;
+                                              },
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              'Unit',
+                                              style: TextStyle(
+                                                fontSize: getAdaptiveFontSize(
+                                                  20,
+                                                ),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            TextField(
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                hintText: 'Enter a value',
+                                              ),
+                                              onChanged: (value) {
+                                                unitNew = value;
+                                              },
                                             ),
                                             SizedBox(height: 10),
                                             Center(
@@ -211,9 +243,20 @@ class IngredientsScreenContent extends StatelessWidget {
                                                             Colors.white,
                                                       ),
                                                   child: const Text('Save'),
-                                                  onPressed: () {
-                                                    //TODO: ADD LOGIC TO ADD TO INGREDIENT LIST
-                                                    Navigator.pop(context);
+                                                  onPressed: () async {
+                                                    try {
+                                                      await Database()
+                                                          .addToFridge(
+                                                            ingredientNew,
+                                                            quantityNew,
+                                                            unitNew,
+                                                          );
+                                                      Navigator.pop(context);
+                                                    } catch (e) {
+                                                      print(
+                                                        'Error adding to fridge: $e',
+                                                      );
+                                                    }
                                                   },
                                                 ),
                                               ),
@@ -242,6 +285,8 @@ class IngredientsScreenContent extends StatelessWidget {
                   child: SizedBox(
                     height: 800,
                     child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: data
                           .length, //TODO: CHANGE THIS ACCORDING TO NUMBER OF AVAILABLE RECIPES
@@ -277,13 +322,97 @@ class IngredientsScreenContent extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Name', // TODO: CHANGE THIS TO CURRENT RECIPE
+                                            item['ingredients'], // TODO: CHANGE THIS TO CURRENT RECIPE
                                             style: TextStyle(
                                               fontSize: getAdaptiveFontSize(28),
                                               fontWeight: FontWeight.w800,
                                             ),
                                           ),
                                           const SizedBox(height: 10),
+                                          Text(
+                                            'Quantity',
+                                            style: TextStyle(
+                                              fontSize: getAdaptiveFontSize(20),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          TextFormField(
+                                            initialValue: item['quantity']
+                                                .toString(),
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Enter a value',
+                                            ),
+                                            onChanged: (value) {
+                                              quantityNew =
+                                                  int.tryParse(value) ?? 0;
+                                            },
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            'Unit',
+                                            style: TextStyle(
+                                              fontSize: getAdaptiveFontSize(20),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          TextFormField(
+                                            initialValue: item['unit'],
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: 'Enter a value',
+                                            ),
+                                            onChanged: (value) {
+                                              unitNew = value;
+                                            },
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              ElevatedButton(
+                                                child: const Text('Save'),
+                                                onPressed: () async {
+                                                  try {
+                                                    await Database()
+                                                        .editIngredients(
+                                                          item['id'],
+                                                          quantityNew == 0
+                                                              ? item['quantity']
+                                                              : quantityNew,
+                                                          unitNew.isEmpty
+                                                              ? item['unit']
+                                                              : unitNew,
+                                                        );
+                                                    Navigator.pop(context);
+                                                  } catch (e) {
+                                                    print(
+                                                      'Error editing to fridge: $e',
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                              ElevatedButton(
+                                                child: const Text('Delete'),
+                                                onPressed: () async {
+                                                  try {
+                                                    await Database()
+                                                        .deleteFromFridge(
+                                                          item['id'],
+                                                        );
+                                                    Navigator.pop(context);
+                                                  } catch (e) {
+                                                    print(
+                                                      'Error removing from fridge: $e',
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                          ),
                                           Center(
                                             child: ElevatedButton(
                                               child: const Text('Close'),
@@ -324,13 +453,20 @@ class IngredientsScreenContent extends StatelessWidget {
                               ),
                               child: Row(
                                 children: [
-                                  Text(item['ingredients'], style: TextStyle(fontSize: getAdaptiveFontSize(24),
-                      fontWeight: FontWeight.w500,)),
+                                  Text(
+                                    item['ingredients'],
+                                    style: TextStyle(
+                                      fontSize: getAdaptiveFontSize(24),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                   Spacer(),
                                   Text(
                                     item['quantity'].toString() + item['unit'],
-                                    style: TextStyle(fontSize: getAdaptiveFontSize(24),
-                      fontWeight: FontWeight.w300,)
+                                    style: TextStyle(
+                                      fontSize: getAdaptiveFontSize(24),
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                   ),
                                 ],
                               ),
