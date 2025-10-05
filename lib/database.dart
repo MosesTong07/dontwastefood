@@ -50,4 +50,8 @@ class Database {
   Future deleteFromFridge(String id) async {
     await supabase.from('FridgeContent').delete().eq('id', id);
   }
+
+  final streamRecipes = supabase
+      .from('RecipeSample')
+      .stream(primaryKey: ['id']);
 }

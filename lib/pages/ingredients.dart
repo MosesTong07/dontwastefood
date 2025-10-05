@@ -92,9 +92,6 @@ class IngredientsScreenContent extends StatelessWidget {
             return const CircularProgressIndicator();
           }
           final data = snapshot.data!;
-          if (data.isEmpty) {
-            return const Text("No data");
-          }
           //return Text(data.toString());
           return SingleChildScrollView(
             child: Column(
