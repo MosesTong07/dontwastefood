@@ -306,7 +306,7 @@ class IngredientsScreenContent extends StatelessWidget {
                             height: 100,
                             margin: const EdgeInsets.only(bottom: 8),
                             decoration: BoxDecoration(
-                              color: Colors.orangeAccent,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
@@ -324,10 +324,13 @@ class IngredientsScreenContent extends StatelessWidget {
                               ),
                               child: Row(
                                 children: [
-                                  Text(item['ingredients']),
+                                  Text(item['ingredients'], style: TextStyle(fontSize: getAdaptiveFontSize(24),
+                      fontWeight: FontWeight.w500,)),
                                   Spacer(),
                                   Text(
                                     item['quantity'].toString() + item['unit'],
+                                    style: TextStyle(fontSize: getAdaptiveFontSize(24),
+                      fontWeight: FontWeight.w300,)
                                   ),
                                 ],
                               ),

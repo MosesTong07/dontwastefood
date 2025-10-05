@@ -173,7 +173,7 @@ class RecipeScreenContent extends StatelessWidget {
                               isScrollControlled: true,
                               context: context,
                               builder: (BuildContext context) {
-                                 //TODO: CHANGE THIS TO ACTUAL FRIDGE ITEMS
+                                //TODO: CHANGE THIS TO ACTUAL FRIDGE ITEMS
                                 final List<String> fridgeItems = [
                                   '2 eggs',
                                   '200ml milk',
@@ -181,8 +181,8 @@ class RecipeScreenContent extends StatelessWidget {
                                   'Salt',
                                   'Pepper',
                                 ];
-                                final List<bool> checked =
-                                    List<bool>.filled(fridgeItems.length, false);
+                                final List<bool> checked = List<bool>.filled(
+                                    fridgeItems.length, false);
                                 return Container(
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFF9F6E7),
@@ -197,7 +197,6 @@ class RecipeScreenContent extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 30.0, top: 30, right: 30),
                                     child: SingleChildScrollView(
-                                     
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -228,12 +227,14 @@ class RecipeScreenContent extends StatelessWidget {
                                             itemCount: fridgeItems.length,
                                             itemBuilder: (context, index) {
                                               return StatefulBuilder(
-                                                builder: (context, setModalState) =>
-                                                    ListTile(
+                                                builder:
+                                                    (context, setModalState) =>
+                                                        ListTile(
                                                   visualDensity:
                                                       const VisualDensity(
                                                           vertical: -4),
-                                                  contentPadding: EdgeInsets.zero,
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
                                                   dense: true,
                                                   leading: Checkbox(
                                                     value: checked[index],
@@ -293,8 +294,12 @@ class RecipeScreenContent extends StatelessWidget {
                             width: 200,
                             margin: const EdgeInsets.only(right: 8),
                             decoration: BoxDecoration(
-                              color: Colors.orangeAccent,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.grey, // grey border color
+                                width: 1, // border thickness
+                              ),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.3),
@@ -305,18 +310,23 @@ class RecipeScreenContent extends StatelessWidget {
                               ],
                             ),
                             child: Center(
-                              child: Text(
-                                'Item ${index + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Item ${index + 1}',
+                                    style: const TextStyle(
+                                      color: Color(0xFF5D5454),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         );
-                      
                       },
                     ),
                   ),
@@ -344,7 +354,7 @@ class RecipeScreenContent extends StatelessWidget {
                               isScrollControlled: true,
                               context: context,
                               builder: (BuildContext context) {
-                                 //TODO: CHANGE THIS TO ACTUAL FRIDGE ITEMS
+                                //TODO: CHANGE THIS TO ACTUAL FRIDGE ITEMS
                                 final List<String> fridgeItems = [
                                   '2 eggs',
                                   '200ml milk',
@@ -352,8 +362,8 @@ class RecipeScreenContent extends StatelessWidget {
                                   'Salt',
                                   'Pepper',
                                 ];
-                                final List<bool> checked =
-                                    List<bool>.filled(fridgeItems.length, false);
+                                final List<bool> checked = List<bool>.filled(
+                                    fridgeItems.length, false);
                                 return Container(
                                   decoration: const BoxDecoration(
                                     color: Color(0xFFF9F6E7),
@@ -362,13 +372,12 @@ class RecipeScreenContent extends StatelessWidget {
                                       topLeft: Radius.circular(30),
                                     ),
                                   ),
-                                  height: MediaQuery.of(context).size.height *
-                                      0.8, 
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.8,
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 30.0, top: 30, right: 30),
                                     child: SingleChildScrollView(
-                                     
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -399,12 +408,14 @@ class RecipeScreenContent extends StatelessWidget {
                                             itemCount: fridgeItems.length,
                                             itemBuilder: (context, index) {
                                               return StatefulBuilder(
-                                                builder: (context, setModalState) =>
-                                                    ListTile(
+                                                builder:
+                                                    (context, setModalState) =>
+                                                        ListTile(
                                                   visualDensity:
                                                       const VisualDensity(
                                                           vertical: -4),
-                                                  contentPadding: EdgeInsets.zero,
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
                                                   dense: true,
                                                   leading: Checkbox(
                                                     value: checked[index],
@@ -464,8 +475,12 @@ class RecipeScreenContent extends StatelessWidget {
                             width: 200,
                             margin: const EdgeInsets.only(right: 8),
                             decoration: BoxDecoration(
-                              color: Colors.orangeAccent,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.grey, // grey border color
+                                width: 1, // border thickness
+                              ),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.3),
@@ -476,12 +491,18 @@ class RecipeScreenContent extends StatelessWidget {
                               ],
                             ),
                             child: Center(
-                              child: Text(
-                                'Item ${index + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Item ${index + 1}',
+                                    style: const TextStyle(
+                                      color: Color(0xFF5D5454),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
